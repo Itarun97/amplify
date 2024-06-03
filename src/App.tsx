@@ -1,13 +1,13 @@
 import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
-import { useEffect, useState } from "react";
-import type { Schema } from "../amplify/data/resource";
-import { generateClient } from "aws-amplify/data";
+//import { useEffect, useState } from "react";
+//import type { Schema } from "../amplify/data/resource";
+//import { generateClient } from "aws-amplify/data";
 
-const client = generateClient<Schema>();
+//const client = generateClient<Schema>();
 
 function App() {
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+ /* const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
   useEffect(() => {
     client.models.Todo.observeQuery().subscribe({
@@ -21,29 +21,41 @@ function App() {
 
   function deleteTodo(id: string) {
     client.models.Todo.delete({ id })
-  }
+  }*/
 
   return (
         
     <Authenticator>
-      {({ signOut, user }) => (
+      {({ signOut }) => (
     <main>
-      <h1>{user?.signInDetails?.loginId}'s todos</h1>
-      <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li
-          onClick={() => deleteTodo(todo.id)} key={todo.id}>{todo.content}</li>
-        ))}
-      </ul>
       <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
-          Review next step of this tutorial.
-        </a>
+      <title>Compose Email</title>
+      <div>
+            <form id="email-form" className="compose-form">
+            <h2>Compose Email</h2>
+            <div>
+                <label htmlFor="to">To:</label>
+                <input type="email" id="to" name="to" required/>
+            </div>
+            <div>
+                <label htmlFor="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required/>
+            </div>
+            <div>
+                  <label htmlFor="body">Body:</label>
+                  <textarea id="body" name="body" required></textarea>
+            </div>
+            <button type="submit">Compose</button>
+            </form>
       </div>
-      <button onClick={signOut}>Sign out</button>
+      </div>
+      
+  <div id="email-preview"></div>
+  <button onClick={signOut}>Sign out</button>
+      
+
+
+      
     </main>
         
       )}
