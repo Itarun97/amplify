@@ -28,29 +28,34 @@ function App() {
     <Authenticator>
       {({ signOut }) => (
     <main>
-      <div>
-      <title>Compose Email</title>
-      <div>
-            <form id="email-form" className="compose-form">
+      
+        <header className='App-header'>
+
+        <title>Compose Email</title>
+        <div className='text'>
+        <form id="email-form" className="compose-form">
             <h2>Compose Email</h2>
-            <div>
+            <div className='group'>
                 <label htmlFor="to">To:</label>
                 <input type="email" id="to" name="to" required/>
             </div>
-            <div>
+            <div className='group'>
                 <label htmlFor="subject">Subject:</label>
                 <input type="text" id="subject" name="subject" required/>
             </div>
-            <div>
+            <div className='group'>
                   <label htmlFor="body">Body:</label>
                   <textarea id="body" name="body" required></textarea>
             </div>
             <button type="submit">Compose</button>
             </form>
-      </div>
-      </div>
+            <div className="email-preview"></div>
+        </div>
+
+
+        </header>
       
-  <div id="email-preview"></div>
+  
   <button onClick={signOut}>Sign out</button>
       
 
