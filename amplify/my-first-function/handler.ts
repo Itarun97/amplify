@@ -1,4 +1,9 @@
-export const handler = async (event: {
+import { Handler } from "aws-cdk-lib/aws-lambda";
+import { SESClient } from "@aws-sdk/client-ses";
+import { SendEmailCommand } from "@aws-sdk/client-ses";
+
+
+export const handler: Handler = async (event: {
   emailid: string,
   body: string,
   subject: string
