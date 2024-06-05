@@ -1,5 +1,6 @@
 import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
+import React, { useState } from "react";
 //import { useEffect, useState } from "react";
 //import type { Schema } from "../amplify/data/resource";
 //import { generateClient } from "aws-amplify/data";
@@ -7,6 +8,64 @@ import '@aws-amplify/ui-react/styles.css'
 //const client = generateClient<Schema>();
 
 function App() {
+  
+    const [emailid, setEmailid] = useState("");
+    const [subject, setSubject] = useState("");
+    const [body, setBody] = useState("");
+  
+    const handleEmailidChange = (event: {
+      target: { value: React.SetStateAction<string> };
+    }) => {
+      setEmailid(event.target.value);
+    };
+  
+    const handleSubjectChange = (event: {
+      target: { value: React.SetStateAction<string> };
+    }) => {
+      setSubject(event.target.value);
+    };
+  
+    const handleBodyChange = (event: {
+      target: { value: React.SetStateAction<string> };
+    }) => {
+      setBody(event.target.value);
+    };
+  
+    const handleSubmit = (e: any) => {
+      e.preventDefault();
+      console.log(emailid);
+      console.log(subject);
+      console.log(body);
+      try {
+        const response = fetch(
+          "https://owwg6axev9.execute-api.ap-south-1.amazonaws.com/testing",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              emailid: emailid,
+              subject: subject,
+              body: body,
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          }
+        );
+  
+        response
+          .then((response) => response.json())
+          .then((data) => { 
+                    
+           return data;
+          })
+          .catch((err) => {
+            console.log(err);
+            throw err;
+          });
+      } catch (error) {
+        console.error("Error sending email:", error);
+      }
+    };
  /* const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
   useEffect(() => {
@@ -37,17 +96,18 @@ function App() {
             <h2>Compose Email</h2>
             <div className='group'>
                 <label htmlFor="to">To:</label>
-                <input type="email" id="to" name="to" required/>
+                <input type="email" id="to" name="to" onChange={handleEmailidChange} required/>
+
             </div>
             <div className='group'>
                 <label htmlFor="subject">Subject:</label>
-                <input type="text" id="subject" name="subject" required/>
+                <input type="text" id="subject" name="subject" onChange={handleSubjectChange} required/>
             </div>
             <div className='group'>
                   <label htmlFor="body">Body:</label>
-                  <textarea id="body" name="body" required></textarea>
+                  <textarea id="body" name="body" onChange={handleBodyChange} required></textarea>
             </div>
-            <button type="submit">Compose</button>
+            <button type="submit" onClick={handleSubmit}>Compose</button>
             </form>
             <div className="email-preview"></div>
         </div>
