@@ -1,4 +1,8 @@
-{
+export const handler = async (event: {
+  emailid: string,
+  body: string,
+  subject: string
+}) => {
     // TODO implement
     try{
     const email= event.emailid;
